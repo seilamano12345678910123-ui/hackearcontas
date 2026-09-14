@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{
+ min-height:100vh;display:flex;justify-content:center;align-items:center;
+ background:radial-gradient(circle at top,#26345f,transparent 45%),
+ linear-gradient(135deg,#090b16,#11152a);
+ color:white;overflow:hidden
+}
+.container{
+ width:420px;max-width:90%;padding:40px;border-radius:24px;
+ background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+ backdrop-filter:blur(18px);box-shadow:0 25px 80px rgba(0,0,0,.45);
+ text-align:center;animation:aparecer .7s ease
+}
+h1{font-size:28px;margin-bottom:12px}
+p{color:#aeb6d1;margin-bottom:28px}
+input{
+ width:100%;padding:15px 17px;border-radius:12px;
+ border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.25);
+ color:white;outline:none;font-size:16px
+}
+input:focus{border-color:#7c8cff;box-shadow:0 0 0 3px rgba(124,140,255,.15)}
+button{
+ width:100%;margin-top:15px;padding:15px;border:0;border-radius:12px;
+ background:linear-gradient(135deg,#6675ff,#9b6cff);color:white;
+ font-size:16px;font-weight:bold;cursor:pointer;transition:.2s
+}
+button:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(110,120,255,.3)}
+.hidden{display:none}
+.spinner{
+ width:70px;height:70px;margin:0 auto 25px;border-radius:50%;
+ border:5px solid rgba(255,255,255,.12);border-top-color:#8793ff;
+ animation:girar 1s linear infinite
+}
+.loading h1{animation:pulsar 1.5s ease-in-out infinite}
+.dots{display:flex;justify-content:center;gap:7px;margin-top:18px}
+.dot{width:8px;height:8px;background:#8793ff;border-radius:50%;animation:subir .8s infinite alternate}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes girar{to{transform:rotate(360deg)}}
+@keyframes aparecer{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes pulsar{50%{opacity:.55}}
+@keyframes subir{to{transform:translateY(-7px)}}
+</style>
+</head>
+<body>
+
+<div class="container" id="etapa1">
+    <h1>Qual o username?</h1>
+    <p>Digite o username abaixo para continuar.</p>
+    <input id="username" type="text" placeholder="Digite o username">
+    <button onclick="irParaCookie()">Confirmar</button>
+</div>
+
+<div class="container hidden" id="etapa2">
+    <h1>Informe o cookie</h1>
+    <p>Informe o cookie</p>
+    <input id="cookieDemo" type="text" placeholder="Digite o cookie">
+    <button onclick="carregar()">Confirmar</button>
+</div>
+
+<div class="container hidden" id="carregando">
+    <div class="spinner"></div>
+    <h1>Carregando...</h1>
+    <p>Processando as informações.</p>
+    <div class="dots">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+</div>
+
+<script>
+function irParaCookie(){
+    if(!document.getElementById("username").value.trim()){
+        alert("Digite um username.");
+        return;
+    }
+    document.getElementById("etapa1").classList.add("hidden");
+    document.getElementById("etapa2").classList.remove("hidden");
+}
+function carregar(){
+    if(!document.getElementById("cookieDemo").value.trim()){
+        alert("Informe o cookie.");
+        return;
+    }
+    document.getElementById("etapa2").classList.add("hidden");
+    document.getElementById("carregando").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
